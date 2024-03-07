@@ -105,7 +105,7 @@ export QT_IM_MODULE=fcitx
 alias q="exit"
 alias c="clear"
 
-alias open="function open_function() { nohup nemo $@ &; }; open_function"
+alias open="function open_function() { nohup nemo $@ >/dev/null 2>&1 &; }; open_function"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
