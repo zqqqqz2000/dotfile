@@ -107,7 +107,9 @@ alias q="exit"
 alias c="clear"
 alias rescreen="xrandr --auto"
 
-alias open="function open_function() { nohup nemo $@ >/dev/null 2>&1 &; }; open_function"
+function open() {
+  nohup $(echo nemo $1) >/dev/null 2>&1 & 
+}
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
