@@ -49,6 +49,8 @@ floating_modifier $mod
 
 # set all window border
 for_window [class=".*"] border pixel 5
+# ulauncher no border
+for_window [class=".*Ulauncher.*"] border pixel 0
 
 # move tiling windows via drag & drop by left-clicking into the title bar,
 # or left-clicking anywhere into the window while holding the floating modifier.
@@ -66,7 +68,7 @@ bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
 # bindsym $mod+d exec --no-startup-id dmenu_run
-bindsym $mod+space exec --no-startup-id dmenu_run
+bindsym $mod+space exec --no-startup-id ulauncher-toggle
 
 # A more modern dmenu replacement is rofi:
 # bindcode $mod+40 exec "rofi -modi drun,run -show drun"
