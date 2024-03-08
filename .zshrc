@@ -105,6 +105,7 @@ export QT_IM_MODULE=fcitx
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias q="exit"
 alias c="clear"
+alias rescreen="xrandr --auto"
 
 alias open="function open_function() { nohup nemo $@ >/dev/null 2>&1 &; }; open_function"
 
