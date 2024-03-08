@@ -52,6 +52,11 @@ for_window [class=".*"] border pixel 5
 # ulauncher no border
 for_window [class=".*Ulauncher.*"] border pixel 0
 
+# class                 border  backgr. text    indicator child_border                                                                     
+client.focused_inactive #0d1010 #212121 #d9d9d9 #0d1010 #063340                                                                            
+client.unfocused        #0d1010 #212121 #d9d9d9 #424242 #063340                                                                            
+client.focused          #d9d9d9 #cecece #000000 #d9d9d9 #d9d9d9
+
 # move tiling windows via drag & drop by left-clicking into the title bar,
 # or left-clicking anywhere into the window while holding the floating modifier.
 tiling_drag modifier titlebar
