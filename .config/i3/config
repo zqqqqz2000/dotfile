@@ -67,8 +67,7 @@ client.placeholder      #000000 #0C0C0C #FFFFFF #000000   #0C0C0C
 tiling_drag modifier titlebar
 
 # start a terminal
-# bindsym $mod+Return exec terminator
-bindsym $mod+Return exec hyper
+bindsym $mod+Return exec terminator
 
 # screenshot
 bindsym $mod+Shift+a exec flameshot gui
