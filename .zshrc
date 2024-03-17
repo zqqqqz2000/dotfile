@@ -106,6 +106,8 @@ export QT_IM_MODULE=fcitx
 alias q="exit"
 alias c="clear"
 alias rescreen="xrandr --auto"
+alias work="cd ~/Documents/projects/"
+alias confi=""
 
 function open() {
   nohup $(echo nemo $1) >/dev/null 2>&1 & 
