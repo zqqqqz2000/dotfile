@@ -40,6 +40,13 @@ exec --no-startup-id fcitx5 -d
 # ulauncher
 exec --no-startup-id ulauncher
 
+# copyq
+exec copyq
+bindsym $mod+c exec --no-startup-id copyq show
+for_window [instance="copyq"] floating enable
+for_window [instance="copyq"] resize set 1000 600
+for_window [instance="copyq"] border pixel 5
+
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
