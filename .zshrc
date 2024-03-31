@@ -113,6 +113,8 @@ function open() {
   nohup $(echo nemo $1) >/dev/null 2>&1 & 
 }
 
+export PATH="/opt/cuda/bin:$PATH"
+
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/opt/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
@@ -129,4 +131,6 @@ unset __conda_setup
 # <<< conda initialize <<<
 
 conda deactivate
+
+eval "$(zoxide init zsh)"
 
