@@ -107,7 +107,8 @@ alias q="exit"
 alias c="clear"
 alias rescreen="xrandr --auto"
 alias work="cd ~/Documents/projects/"
-alias confi=""
+alias pd="deactivate"
+alias pa=". ./venv/bin/activate"
 
 function open() {
   nohup $(echo nemo $1) >/dev/null 2>&1 & 

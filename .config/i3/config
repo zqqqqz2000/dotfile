@@ -37,6 +37,9 @@ exec --no-startup-id nm-applet
 # fcitx5
 exec --no-startup-id fcitx5 -d
 
+# set all light to dark
+exec --no-startup-id openrgb --profile ~/.config/OpenRGB/dark.orp
+
 # ulauncher
 exec --no-startup-id ulauncher
 
