@@ -1,5 +1,9 @@
 FROM debian:bookworm
 
+ARG golang_version=1.21.4
+ARG npm_version=16.3.0
+ARG python_version=3.11
+
 RUN rm -r /etc/apt/sources.list.d
 COPY <<EOT /etc/apt/sources.list
 deb http://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm main contrib non-free non-free-firmware
@@ -15,7 +19,7 @@ deb http://mirrors.tuna.tsinghua.edu.cn/debian-security bookworm-security main c
 deb-src http://mirrors.tuna.tsinghua.edu.cn/debian-security bookworm-security main contrib non-free non-free-firmware
 EOT
 
-RUN apt-get update -y && apt-get install -y sudo curl zsh git gcc
+RUN apt-get update -y && apt-get install -y sudo curl wget zsh git gcc tmux unzip
 
 # lazygit
 RUN LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*') && \
@@ -30,18 +34,46 @@ RUN curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linu
 
 ENV PATH="$PATH:/opt/nvim-linux64/bin"
 
+# install golang
+RUN wget https://go.dev/dl/go${golang_version}.linux-amd64.tar.gz && \
+  tar -C /usr/local -xzf go${golang_version}.linux-amd64.tar.gz
+ENV PATH=$PATH:/usr/local/go/bin
+
 # add user
-RUN useradd -ms /usr/bin/zsh dev && \
+RUN useradd -m -s /usr/bin/zsh dev && \
   usermod -aG sudo dev && \
-  echo "dev ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers && \
-  chsh -s $(which zsh)
+  echo "dev ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers
 
 USER dev
+WORKDIR /home/dev
 
-RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+# install nodejs nvm
+ENV NVM_DIR="/home/dev/.nvm"
+ENV SHELL="/usr/bin/zsh"
+
+RUN git clone https://github.com/nvm-sh/nvm.git .nvm && \
+  chmod +x .nvm/nvm.sh && . .nvm/nvm.sh && \
+  nvm install ${npm_version}
+
+# install python conda
+RUN wget \
+  https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
+  && mkdir /home/dev/.conda \
+  && bash Miniconda3-latest-Linux-x86_64.sh -b \
+  && rm -f Miniconda3-latest-Linux-x86_64.sh
+ENV PATH="$PATH:/home/dev/miniconda3/bin"
+
+RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" && sudo chsh -s $(which zsh) dev
 
 # config zsh tmux
-ADD --chown=dev .zshrc .tmux.conf
+COPY --chown=dev .zshrc /home/dev/.zshrc
+COPY --chown=dev .tmux.conf /home/dev/.tmux.conf
+RUN cat <<EOT >> /home/dev/.zshrc
+export NVM_DIR="/home/dev/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+EOT
+
 
 # config nvim
 COPY --chown=dev .config /home/dev/.config
@@ -50,8 +82,6 @@ RUN nvim --headless -c 'lua require("lazy").install({ wait = true, show = false,
   nvim --headless -c 'lua require("lazy").update({ wait = true, show = false, concurrency = 20 })' +qa && \
   nvim --headless -c 'lua require("lazy").update({ wait = true, show = false, concurrency = 20 })' +qa && \
   nvim --headless -c 'lua require("lazy").update({ wait = true, show = false, concurrency = 20 })' +qa && \
-  nvim --headless -c 'lua require("lazy").update({ wait = true, show = false, concurrency = 20 })' +qa && \
-  nvim --headless -c 'MasonInstallAll' +qa
+  nvim --headless -c 'lua require("lazy").update({ wait = true, show = false, concurrency = 20 })' +qa
 
-WORKDIR /home/dev
 ENTRYPOINT ["nvim"]
