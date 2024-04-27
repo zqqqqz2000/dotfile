@@ -20,6 +20,7 @@ deb-src http://mirrors.tuna.tsinghua.edu.cn/debian-security bookworm-security ma
 EOT
 
 RUN apt-get update -y && apt-get install -y sudo curl wget zsh git gcc tmux unzip bat
+SHELL ["/usr/bin/zsh", "-c"]
 
 # lazygit
 RUN LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*') && \
@@ -53,7 +54,21 @@ ENV SHELL="/usr/bin/zsh"
 
 RUN git clone https://github.com/nvm-sh/nvm.git .nvm && \
   chmod +x .nvm/nvm.sh && . .nvm/nvm.sh && \
-  nvm install ${npm_version}
+  nvm install ${npm_version} && \
+  npm install -g bun
+
+RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" && \
+  sudo chsh -s $(which zsh) dev && \
+  git clone https://github.com/jeffreytse/zsh-vi-mode /home/dev/.oh-my-zsh/plugins/zsh-vi-mode
+COPY --chown=dev .tmux.conf /home/dev/.tmux.conf
+# config zsh tmux
+COPY --chown=dev zshrc-for-devcontainer /home/dev/.zshrc
+
+RUN cat <<EOT >> /home/dev/.zshrc
+export NVM_DIR="/home/dev/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+EOT
 
 # install python conda
 RUN wget \
@@ -62,18 +77,11 @@ RUN wget \
   && bash Miniconda3-latest-Linux-x86_64.sh -b \
   && rm -f Miniconda3-latest-Linux-x86_64.sh
 ENV PATH="$PATH:/home/dev/miniconda3/bin"
-ENV PATH="$PATH:/home/dev/.nvm/versions/node/v${npm_version}/bin"
 
-RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" && sudo chsh -s $(which zsh) dev
-
-# config zsh tmux
-COPY --chown=dev .zshrc /home/dev/.zshrc
-COPY --chown=dev .tmux.conf /home/dev/.tmux.conf
-RUN cat <<EOT >> /home/dev/.zshrc
-export NVM_DIR="/home/dev/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-EOT
+# activate python version
+RUN conda create -y -n python${python_version} python=${python_version} && \
+  conda init zsh && \
+  echo "conda activate python${python_version}" >> /home/dev/.zshrc
 
 # config nvim
 COPY --chown=dev .config /home/dev/.config
@@ -84,4 +92,4 @@ RUN nvim --headless -c 'lua require("lazy").install({ wait = true, show = false,
   nvim --headless -c 'lua require("lazy").update({ wait = true, show = false, concurrency = 20 })' +qa && \
   nvim --headless -c 'lua require("lazy").update({ wait = true, show = false, concurrency = 20 })' +qa
 
-ENTRYPOINT ["nvim"]
+ENTRYPOINT ["zsh"]
