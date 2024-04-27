@@ -19,7 +19,7 @@ deb http://mirrors.tuna.tsinghua.edu.cn/debian-security bookworm-security main c
 deb-src http://mirrors.tuna.tsinghua.edu.cn/debian-security bookworm-security main contrib non-free non-free-firmware
 EOT
 
-RUN apt-get update -y && apt-get install -y sudo curl wget zsh git gcc tmux unzip
+RUN apt-get update -y && apt-get install -y sudo curl wget zsh git gcc tmux unzip bat
 
 # lazygit
 RUN LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*') && \
@@ -62,6 +62,7 @@ RUN wget \
   && bash Miniconda3-latest-Linux-x86_64.sh -b \
   && rm -f Miniconda3-latest-Linux-x86_64.sh
 ENV PATH="$PATH:/home/dev/miniconda3/bin"
+ENV PATH="$PATH:/home/dev/.nvm/versions/node/v${npm_version}/bin"
 
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" && sudo chsh -s $(which zsh) dev
 
@@ -70,10 +71,9 @@ COPY --chown=dev .zshrc /home/dev/.zshrc
 COPY --chown=dev .tmux.conf /home/dev/.tmux.conf
 RUN cat <<EOT >> /home/dev/.zshrc
 export NVM_DIR="/home/dev/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 EOT
-
 
 # config nvim
 COPY --chown=dev .config /home/dev/.config
