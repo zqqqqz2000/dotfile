@@ -115,6 +115,7 @@ function open() {
 }
 
 export PATH="/opt/cuda/bin:$PATH"
+export PATH="$HOME/go/bin:$PATH"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
