@@ -110,7 +110,8 @@ alias rescreen="xrandr --auto"
 alias work="cd ~/Documents/projects/"
 alias pd="deactivate"
 alias pa=". ./venv/bin/activate"
-alias pcd"conda deactivate"
+alias pcd="conda deactivate"
+alias penv="python -m venv venv"
 
 function open() {
   nohup $(echo nemo $1) >/dev/null 2>&1 & 
