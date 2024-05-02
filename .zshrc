@@ -72,6 +72,7 @@ ZSH_THEME="robbyrussell"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git)
 plugins+=(zsh-vi-mode)
+plugins+=(fzf-zsh-plugin)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -109,6 +110,7 @@ alias rescreen="xrandr --auto"
 alias work="cd ~/Documents/projects/"
 alias pd="deactivate"
 alias pa=". ./venv/bin/activate"
+alias pcd"conda deactivate"
 
 function open() {
   nohup $(echo nemo $1) >/dev/null 2>&1 & 
@@ -135,4 +137,3 @@ unset __conda_setup
 conda deactivate
 
 eval "$(zoxide init zsh)"
-
