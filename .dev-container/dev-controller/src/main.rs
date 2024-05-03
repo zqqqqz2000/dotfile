@@ -1,3 +1,6 @@
+use clap::{Parser, Subcommand};
+use commands::{down, run};
+use serde_derive::{Deserialize, Serialize};
 use std::{
     collections::HashMap,
     ffi::OsStr,
@@ -5,12 +8,10 @@ use std::{
     io::Write,
     path::Path,
 };
-
-use clap::Parser;
-use serde_derive::{Deserialize, Serialize};
+mod commands;
 
 /// Simple tool for control dev docker environment
-#[derive(Parser, Debug)]
+#[derive(Parser, Debug, Clone)]
 struct Args {
     /// languages and its version, e.g. --lang python:3.10 --lang golang:2.1
     #[arg(short, long)]
@@ -25,6 +26,14 @@ struct Args {
     /// the image name, default: "devallinone"
     #[arg(short, long, default_value = "devallinone")]
     image_name: String,
+    #[command(subcommand)]
+    command: Option<Command>,
+}
+
+#[derive(Subcommand, Debug, Clone)]
+enum Command {
+    Up,
+    Down,
 }
 
 #[derive(Deserialize, Serialize)]
@@ -106,5 +115,12 @@ fn load_parse_config(args: Args) -> Config {
 
 fn main() {
     let args = Args::parse();
-    let config = load_parse_config(args);
+    let config = load_parse_config(args.clone());
+    match args.command {
+        None => run(),
+        Some(ref cmd) => match cmd {
+            Command::Up => run(),
+            Command::Down => down(),
+        },
+    };
 }
