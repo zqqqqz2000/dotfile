@@ -1,8 +1,9 @@
 use clap::{Parser, Subcommand};
-use commands::{down, run};
+use commands::{down, exec_it, run};
 use serde_derive::{Deserialize, Serialize};
 use std::{
     collections::HashMap,
+    env,
     ffi::OsStr,
     fs::{self, OpenOptions},
     io::Write,
@@ -21,7 +22,7 @@ struct Args {
     #[arg(short, long)]
     config: Option<String>,
     /// the name of container in podman
-    #[arg(long)]
+    #[arg(long = "name", short = 'n')]
     container_name: Option<String>,
     /// the image name, default: "devallinone"
     #[arg(short, long, default_value = "devallinone")]
@@ -34,16 +35,26 @@ struct Args {
 enum Command {
     Up,
     Down,
+    ExecIT,
+    Init,
 }
 
 #[derive(Deserialize, Serialize)]
 struct Config {
     lang: HashMap<String, String>,
     image_name: String,
+    container_name: String,
 }
 
 impl Config {
     fn default() -> Config {
+        let curr_dir = env::current_dir()
+            .expect("cannot read current dir")
+            .file_name()
+            .expect("cannot parse filename, please do not run this in root path")
+            .to_str()
+            .unwrap()
+            .to_string();
         Config {
             lang: HashMap::from([
                 ("golang".to_string(), "1.21.4".to_string()),
@@ -51,6 +62,8 @@ impl Config {
                 ("npm".to_string(), "16.3.0".to_string()),
             ]),
             image_name: "devallinone".to_string(),
+            // placeholder for now, will auto generate by path or read from config/args
+            container_name: curr_dir,
         }
     }
 }
@@ -67,6 +80,27 @@ fn parse_args_lang(lang: Vec<String>) -> HashMap<String, String> {
         .collect::<HashMap<_, _>>()
 }
 
+fn generate_default_config(write_path: &Path, lang_from_args: HashMap<String, String>) {
+    if !write_path.exists() {
+        let mut default_config = Config::default();
+        if !lang_from_args.is_empty() {
+            default_config.lang.extend(lang_from_args.clone());
+        }
+        let default_toml = toml::to_string(&default_config).unwrap();
+        let mut file = OpenOptions::new()
+            .write(true)
+            .create(true)
+            .truncate(true)
+            .open(write_path)
+            .expect("cannot create default config file, name: 'dev-container.toml'");
+        file.write_all(
+            format!("# devcontainer config for tool `dev-controller` tool\n{default_toml}")
+                .as_bytes(),
+        )
+        .expect("cannot write default config into file");
+    };
+}
+
 fn load_parse_config(args: Args) -> Config {
     let lang_from_args = parse_args_lang(args.lang);
     let path = match args.config {
@@ -74,21 +108,7 @@ fn load_parse_config(args: Args) -> Config {
         None => {
             let default_path = Path::new("dev-container.toml");
             // not exists, then create default
-            if !default_path.exists() {
-                let mut default_config = Config::default();
-                if !lang_from_args.is_empty() {
-                    default_config.lang = lang_from_args.clone();
-                }
-                let default_toml = toml::to_string(&default_config).unwrap();
-                let mut file = OpenOptions::new()
-                    .write(true)
-                    .create(true)
-                    .truncate(true)
-                    .open(default_path)
-                    .expect("cannot create default config file, name: 'dev-container.toml'");
-                file.write_all(default_toml.as_bytes())
-                    .expect("cannot write default config into file");
-            };
+            generate_default_config(&default_path, lang_from_args.clone());
             default_path
         }
     };
@@ -107,8 +127,13 @@ fn load_parse_config(args: Args) -> Config {
         }
         other => panic!("not support file ext: {other}"),
     };
+    // fill default language into parsed config
+    let mut lang_default = Config::default().lang;
+    lang_default.extend(config_from_file.lang.clone());
+    config_from_file.lang = lang_default;
+
     if !lang_from_args.is_empty() {
-        config_from_file.lang = lang_from_args;
+        config_from_file.lang.extend(lang_from_args);
     }
     config_from_file
 }
@@ -117,10 +142,25 @@ fn main() {
     let args = Args::parse();
     let config = load_parse_config(args.clone());
     match args.command {
-        None => run(),
+        None => {
+            run(
+                config.image_name,
+                config.lang,
+                config.container_name,
+                HashMap::new(),
+            );
+            exec_it();
+        }
         Some(ref cmd) => match cmd {
-            Command::Up => run(),
+            Command::Up => run(
+                config.image_name,
+                config.lang,
+                config.container_name,
+                HashMap::new(),
+            ),
             Command::Down => down(),
+            Command::ExecIT => exec_it(),
+            Command::Init => {}
         },
     };
 }
