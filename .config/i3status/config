@@ -14,6 +14,7 @@ order += "cpu_temperature 0"
 order += "cpu_usage"
 order += "load"
 order += "ethernet enp6s0"
+order += "battery 0"
 
 wireless wlp4s0 {
     format_up = "%quality  %essid %ip "
@@ -47,4 +48,9 @@ ethernet enp6s0 {
     #if you use %speed, i3status requires root privileges
     format_up = "%ip (%speed)   "
     format_down = ""
+}
+
+battery 0 {
+  format = "%status %percentage %remaining "
+	integer_battery_capacity = true
 }
