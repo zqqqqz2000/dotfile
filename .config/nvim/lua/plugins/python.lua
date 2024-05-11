@@ -17,4 +17,14 @@ return {
     end,
     keys = { { "<leader>cv", "<cmd>:VenvSelect<cr>", desc = "Select VirtualEnv" } },
   },
+  {
+    "stevearc/conform.nvim",
+    opts = {
+      formatters = {
+        black = {
+          prepend_args = { "--line-length", "120" },
+        },
+      },
+    },
+  },
 }
