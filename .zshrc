@@ -112,6 +112,7 @@ alias pa=". ./venv/bin/activate"
 alias pcd="conda deactivate"
 alias penv="python -m venv venv"
 alias e="nvim ."
+alias t="tmux"
 
 function open() {
   nohup $(echo nemo $1) >/dev/null 2>&1 & 
