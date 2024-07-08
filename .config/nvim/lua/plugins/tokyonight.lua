@@ -5,7 +5,7 @@ return {
     style = "night",
     ---@param colors ColorScheme
     on_colors = function(colors)
-      colors.bg_highlight = "#767885"
+      -- colors.bg_highlight = "#767885"
     end,
   },
 }
