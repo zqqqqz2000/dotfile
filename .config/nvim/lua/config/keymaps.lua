@@ -52,4 +52,4 @@ local set_telescope_filter = function()
   popup:mount()
 end
 map("n", "<leader>t", set_telescope_filter, { desc = "Set Telescope Filter" })
-map("n", "<leader>S", "<Cmd>:w<CR>")
+map("n", "<leader>S", "<Cmd>:w<CR>", { desc = "Save File" })
