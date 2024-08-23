@@ -49,6 +49,8 @@ cmd-shift-7 = 'move-node-to-workspace 7'
 cmd-shift-8 = 'move-node-to-workspace 8'
 cmd-shift-9 = 'move-node-to-workspace 9'
 
+cmd-q = 'close'
+
 
 [mode.resize.binding]
 h = 'resize width -50'
@@ -58,3 +60,11 @@ l = 'resize width +50'
 enter = 'mode main'
 esc = 'mode main'
 
+[workspace-to-monitor-force-assignment]
+1 = 'Built-in.*'
+2 = 'HP P27q G4 (2)'
+3 = 'HP P27q G4 (1)'
+4 = 3
+5 = 3
+6 = 3
+7 = 3
