@@ -13,7 +13,7 @@ if vim.g.started_by_firenvim == true then
   vim.o.statusline = ""
   vim.o.laststatus = 0
 
-  vim.api.nvim_set_keymap("n", "<Esc><Esc>", "<Cmd>wq<CR><Cmd>call firenvim#focus_page()<CR>", {})
+  vim.keymap.set({ "n", "i" }, "<Esc><Esc>", "<Cmd>wq<CR><Cmd>call firenvim#focus_page()<CR>", {})
 
   return {
     { "glacambre/firenvim", build = ":call firenvim#install(0)" },
