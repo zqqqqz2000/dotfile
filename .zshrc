@@ -88,6 +88,9 @@ export XMODIFIERS=@im=fcitx
 export GTK_IM_MODULE=fcitx
 export QT_IM_MODULE=fcitx
 
+export EDITOR='nvim'
+export ZVM_VI_EDITOR='nvim'
+
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='vim'
