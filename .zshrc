@@ -72,7 +72,9 @@ ZSH_THEME="robbyrussell"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git)
 plugins+=(zsh-vi-mode)
-plugins+=(thefuck)
+if type thefuck >/dev/null 2>&1; then
+  plugins+=(thefuck)
+fi
 plugins+=(tmuxinator)
 plugins+=(extract)
 
@@ -143,6 +145,10 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
-conda deactivate
+if type conda >/dev/null 2>&1; then
+  conda deactivate
+fi
 
-eval "$(zoxide init zsh)"
+if type zoxide >/dev/null 2>&1; then
+  eval "$(zoxide init zsh)"
+fi
