@@ -5,3 +5,6 @@ dynamic_padding = true
 [font]
 normal = {family = "FiraCode Nerd Font"}
 size = 13
+
+[env]
+TERM = "alacritty-direct"
