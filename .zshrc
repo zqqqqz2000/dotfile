@@ -122,8 +122,17 @@ alias penv="python -m venv venv"
 alias e="nvim ."
 alias t="tmux -2"
 
+alias "??"="gh copilot explain --"
+alias "???"="copilot_suggest"
+
 function open() {
   nohup $(echo nemo $1) >/dev/null 2>&1 & 
+}
+
+function copilot_suggest() {
+  first_arg=$1
+  shift
+  gh copilot suggest -t $first_arg -- $@
 }
 
 export PATH="/opt/cuda/bin:$PATH"
