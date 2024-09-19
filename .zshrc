@@ -135,6 +135,15 @@ function copilot_suggest() {
   gh copilot suggest -t $first_arg -- $@
 }
 
+# define for zsh vim plugin copy osc52
+zvm_vi_yank () {
+	zvm_yank
+  BUF64=$(echo -n "${CUTBUFFER}" | base64)
+  OSC52="'\e]52;c;${BUF64}\e\\'"
+  echo -e -n ${OSC52}
+	zvm_exit_visual_mode
+}
+
 export PATH="/opt/cuda/bin:$PATH"
 export PATH="$HOME/go/bin:$PATH"
 export PATH="$HOME/.cargo/bin/:$PATH"
