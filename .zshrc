@@ -141,6 +141,7 @@ zvm_vi_yank () {
   BUF64=$(echo -n "${CUTBUFFER}" | base64)
   OSC52="'\e]52;c;${BUF64}\e\\'"
   echo -e -n ${OSC52}
+  printf %s "${CUTBUFFER}" | xclip -sel c
 	zvm_exit_visual_mode
 }
 
