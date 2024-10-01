@@ -1,0 +1,12 @@
+{
+  "image": "oven/bun:canary-debian",
+  "features": {
+    "https://github.com/zqqqqz2000/devcontainer-features/releases/download/{{AIO_FEATURE_VERSION}}/devcontainer-feature-allinone.tgz": {
+      "create_user": "bun",
+      "user_uid": "automatic",
+      "user_gid": "automatic"
+    },
+    "ghcr.io/devcontainers/features/node:1": {}
+  },
+  "remoteUser": "bun"
+}

@@ -93,6 +93,8 @@ export QT_IM_MODULE=fcitx
 export EDITOR='nvim'
 export ZVM_VI_EDITOR='nvim'
 
+export AIO_FEATURE_VERSION=1.3.2
+
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='vim'
@@ -136,7 +138,7 @@ function copilot_suggest() {
 }
 
 # define for zsh vim plugin copy osc52
-zvm_vi_yank () {
+function zvm_vi_yank () {
 	zvm_yank
   BUF64=$(echo -n "${CUTBUFFER}" | base64)
   OSC52="'\e]52;c;${BUF64}\e\\'"
@@ -145,9 +147,23 @@ zvm_vi_yank () {
 	zvm_exit_visual_mode
 }
 
+function exit_if_in_devcontainer ()
+{
+  if [[ -f "/workspace" ]]; then
+    exit 1
+  else
+    echo "Not in devcontainer"
+  fi
+}
+
 export PATH="/opt/cuda/bin:$PATH"
 export PATH="$HOME/go/bin:$PATH"
 export PATH="$HOME/.cargo/bin/:$PATH"
+
+alias denv="~/.devcontainer_env.sh"
+alias da="devpod-cli up --ide none . && echo 'Switching into devcontainer' && devpod-cli ssh ."
+alias dra='devpod-cli down . && devpod-cli delete . && devpod-cli up --ide none --recreate . && devpod-cli ssh .'
+alias ddd="exit_if_in_devcontainer"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
@@ -171,3 +187,4 @@ fi
 if type zoxide >/dev/null 2>&1; then
   eval "$(zoxide init zsh)"
 fi
+
