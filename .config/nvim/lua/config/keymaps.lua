@@ -53,3 +53,5 @@ local set_telescope_filter = function()
 end
 map("n", "<leader>t", set_telescope_filter, { desc = "Set Telescope Filter" })
 map("n", "<leader>S", "<Cmd>:w<CR>", { desc = "Save File" })
+map("n", ")", "<Cmd>:BufferLineMoveNext<CR>", { desc = "Buffer Move To Next" })
+map("n", "(", "<Cmd>:BufferLineMovePrev<CR>", { desc = "Buffer Move To Prev" })
