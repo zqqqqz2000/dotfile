@@ -13,7 +13,7 @@ set $mod Mod1
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:monospace 12
+font Iosevka 13
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -46,9 +46,50 @@ exec --no-startup-id ulauncher
 # copyq
 exec copyq
 bindsym $mod+c exec --no-startup-id copyq show
-for_window [instance="copyq"] floating enable
-for_window [instance="copyq"] resize set 1000 600
-for_window [instance="copyq"] border pixel 5
+for_window [title="CopyQ"] floating enable
+for_window [title="CopyQ"] resize set 1000 600
+
+# Visual
+gaps inner 8
+gaps outer 4
+
+default_border pixel 2
+
+set $cl_high #962a54
+set $cl_indi #962a54
+set $cl_back #231f20
+set $cl_fore #FFFFFF
+set $cl_urge #ee2e24
+
+client.focused          $cl_high $cl_high $cl_fore $cl_indi $cl_high
+client.focused_inactive $cl_back $cl_back $cl_fore $cl_back $cl_back
+client.unfocused        $cl_back $cl_back $cl_fore $cl_back $cl_back
+client.urgent           $cl_urge $cl_urge $cl_fore $cl_urge $cl_urge
+
+output * background '~/wallpaper.jpg' fill
+
+# window corner radius in px
+corner_radius 5
+
+# Window background blur
+blur on
+blur_xray on
+blur_passes 2
+blur_radius 3
+
+shadows on
+shadows_on_csd on
+shadow_blur_radius 20
+shadow_color #0000007F
+
+# inactive window fade amount. 0.0 = no dimming, 1.0 = fully dimmed
+default_dim_inactive 0.0
+dim_inactive_colors.unfocused #000000FF
+dim_inactive_colors.urgent #900000FF
+
+# Move minimized windows into Scratchpad (enable|disable)
+scratchpad_minimize disable
+
 
 bindsym $mod+n exec i3-input -F 'rename workspace to "%s"' -P 'New name for this workspace: '
 
@@ -59,20 +100,13 @@ set $refresh_i3status killall -SIGUSR1 i3status
 floating_modifier $mod
 
 # set all window border
-for_window [class=".*"] border pixel 5
+for_window [class=".*"] border pixel 3
 # ulauncher no border
-for_window [class=".*Ulauncher.*"] border pixel 0
-
-# class                 border  bground text    indicator child_border
-client.focused          #50727B #3A5259 #FFFFFF #78A083   #364E54
-client.focused_inactive #35374B #2B2D3D #FFFFFF #35374B   #242533
-client.unfocused        #333333 #212121 #888888 #292D2E   #222222
-client.urgent           #2F343A #900000 #FFFFFF #900000   #900000
-client.placeholder      #000000 #0C0C0C #FFFFFF #000000   #0C0C0C
+for_window [title=".*Ulauncher.*"] border pixel 0
 
 # move tiling windows via drag & drop by left-clicking into the title bar,
 # or left-clicking anywhere into the window while holding the floating modifier.
-tiling_drag modifier titlebar
+tiling_drag modifier
 
 # start a terminal
 bindsym $mod+Return exec alacritty
@@ -209,14 +243,13 @@ bindsym $mod+Shift+9 move container to workspace number $ws9
 # reload the configuration file
 # bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
+bindsym $mod+Shift+r exec swaymsg reload
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
 # Make the currently focused window a scratchpad
-bindsym $mod+Shift+plus move scratchpad
+bindsym $mod+plus move scratchpad
 # Show the first scratchpad window
-bindsym $mod+plus scratchpad show
+bindsym $mod+equal scratchpad show
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -245,9 +278,13 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
 bar {
-position top
-status_command i3status
+    swaybar_command waybar
 }
+
+input type:touchpad {
+    tap enabled
+    natural_scroll enabled
+}
+
+include /etc/sway/config.d/*

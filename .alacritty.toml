@@ -1,7 +1,0 @@
-[window]
-decorations_theme_variant = "Dark"
-dynamic_padding = true
-
-[font]
-normal = {family = "FiraCode Nerd Font"}
-size = 13
