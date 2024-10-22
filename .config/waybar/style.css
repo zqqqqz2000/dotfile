@@ -38,6 +38,6 @@ window#waybar {
   background: transparent;
 }
 
-#workspaces button.focused {
+#workspaces button.active {
   background: #7a2043;
 }

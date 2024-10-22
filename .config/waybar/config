@@ -1,9 +1,9 @@
 {
     "layer": "top",
-    "modules-left": ["hyprland/workspaces", "sway/mode", "sway/window"],
+    "modules-left": ["hyprland/workspaces", "hyprland/mode", "hyprland/window"],
     "modules-center": ["clock"],
     "modules-right": ["tray", "pulseaudio", "memory", "cpu"],
-    "sway/window": {
+    "hyprland/window": {
         "max-length": 50
     },
     "clock": {
