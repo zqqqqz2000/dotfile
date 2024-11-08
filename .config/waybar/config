@@ -2,7 +2,7 @@
     "layer": "top",
     "modules-left": ["hyprland/workspaces", "hyprland/mode", "hyprland/window"],
     "modules-center": ["clock"],
-    "modules-right": ["tray", "pulseaudio", "memory", "cpu"],
+    "modules-right": ["tray", "pulseaudio", "memory", "cpu", "battery"],
     "hyprland/window": {
         "max-length": 50
     },
@@ -37,5 +37,17 @@
       "icons": {
         "discord": "icon-font-char-here"
       }
-  }
+    },
+    "battery": {
+      "format": "{capacity}% {icon}",
+      "format-alt": "{time} {icon}",
+      "format-icons": ["", "", "", "", ""],
+      "format-charging": "{capacity}% ",
+      "interval": 30,
+      "states": {
+        "warning": 25,
+        "critical": 10
+      },
+      "tooltip": false
+    },
 }
