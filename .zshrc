@@ -122,7 +122,7 @@ alias pa=". ./venv/bin/activate"
 alias pcd="conda deactivate"
 alias penv="python -m venv venv"
 alias e="nvim ."
-alias t="tmux -2"
+alias t="zellij"
 
 alias "??"="gh copilot explain --"
 alias "???"="copilot_suggest"
@@ -169,3 +169,6 @@ if type zoxide >/dev/null 2>&1; then
   eval "$(zoxide init zsh)"
 fi
 
+export NVM_DIR="$HOME/.nvm"
+[ -s "$HOMEBREW_PREFIX/opt/nvm/nvm.sh" ] && \. "$HOMEBREW_PREFIX/opt/nvm/nvm.sh" # This loads nvm
+[ -s "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion
