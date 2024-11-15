@@ -3,6 +3,7 @@ keybinds clear-defaults=true {
         bind "Ctrl g" { SwitchToMode "normal"; }
     }
     pane {
+        bind "v" { TogglePaneFrames; }
         // move pane
         bind "left" { MovePane "left"; }
         bind "down" { MovePane "down"; }
@@ -17,12 +18,15 @@ keybinds clear-defaults=true {
 
         // create pane
         bind "|" { NewPane "right"; SwitchToMode "normal"; }
+        bind "%" { NewPane "right"; SwitchToMode "normal"; }
         bind "\"" { NewPane "down"; SwitchToMode "normal"; }
+        bind "-" { NewPane "down"; SwitchToMode "normal"; }
 
         bind "r" { SwitchToMode "renamepane"; PaneNameInput 0; }
         bind "f" { TogglePaneEmbedOrFloating; }
         bind "F" { ToggleFocusFullscreen; }
         bind "Ctrl p" { SwitchToMode "normal"; }
+        bind "q" { SwitchToMode "normal"; }
         bind "w" { ToggleFloatingPanes; }
         bind "z" { TogglePaneFrames; }
     }
@@ -48,6 +52,7 @@ keybinds clear-defaults=true {
         bind "r" { SwitchToMode "renametab"; TabNameInput 0; }
         bind "s" { ToggleActiveSyncTab; SwitchToMode "normal"; }
         bind "Ctrl t" { SwitchToMode "normal"; }
+        bind "q" { SwitchToMode "normal"; }
         bind "x" { CloseTab; SwitchToMode "normal"; }
         bind "tab" { ToggleTab; }
     }
@@ -68,6 +73,7 @@ keybinds clear-defaults=true {
         bind "k" { Resize "Increase up"; }
         bind "l" { Resize "Increase right"; }
         bind "Ctrl n" { SwitchToMode "normal"; }
+        bind "q" { SwitchToMode "normal"; }
     }
     scroll {
         bind "Alt left" { MoveFocusOrTab "left"; SwitchToMode "normal"; }
@@ -80,6 +86,7 @@ keybinds clear-defaults=true {
         bind "Alt k" { MoveFocus "up"; SwitchToMode "normal"; }
         bind "Alt l" { MoveFocusOrTab "right"; SwitchToMode "normal"; }
         bind "s" { SwitchToMode "entersearch"; SearchInput 0; }
+        bind "q" { SwitchToMode "normal"; }
     }
     search {
         bind "c" { SearchToggleOption "CaseSensitivity"; }
@@ -97,6 +104,7 @@ keybinds clear-defaults=true {
             SwitchToMode "normal"
         }
         bind "Ctrl o" { SwitchToMode "normal"; }
+        bind "q" { SwitchToMode "normal"; }
         bind "p" {
             LaunchOrFocusPlugin "plugin-manager" {
                 floating true
