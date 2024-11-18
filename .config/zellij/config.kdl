@@ -1,6 +1,6 @@
 keybinds clear-defaults=true {
     locked {
-        bind "Ctrl l" { SwitchToMode "normal"; }
+        bind "Ctrl L" { SwitchToMode "normal"; }
     }
     pane {
         bind "v" { TogglePaneFrames; }
@@ -113,7 +113,7 @@ keybinds clear-defaults=true {
             }
             SwitchToMode "normal"
         }
-        bind "Ctrl o" { SwitchToMode "normal"; }
+        bind "Ctrl b" { SwitchToMode "normal"; }
         bind "q" { SwitchToMode "normal"; }
         bind "p" {
             LaunchOrFocusPlugin "plugin-manager" {
@@ -131,10 +131,10 @@ keybinds clear-defaults=true {
         }
     }
     shared_except "locked" {
-        bind "Ctrl l" { SwitchToMode "locked"; }
+        bind "Ctrl L" { SwitchToMode "locked"; }
     }
     shared_except "locked" "session" {
-        bind "Ctrl o" { SwitchToMode "session"; }
+        bind "Ctrl b" { SwitchToMode "session"; }
     }
     shared_except "locked" "scroll" "search" {
         bind "Ctrl s" { SwitchToMode "scroll"; }
