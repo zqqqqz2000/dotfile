@@ -168,3 +168,12 @@ alias ddd="exit_if_in_devcontainer"
 if type zoxide >/dev/null 2>&1; then
   eval "$(zoxide init zsh)"
 fi
+
+# load all profiles
+ZDOTDIR="${ZDOTDIR:-$HOME/.zsh_profiles}"
+if [[ -d "$ZDOTDIR" ]]; then
+  for file in "$ZDOTDIR"/*.zsh; do
+    source "$file"
+  done
+fi
+
