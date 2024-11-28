@@ -64,6 +64,8 @@ ZSH_THEME="robbyrussell"
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
+
+[[ ! -d ~/.zplug ]] && git clone curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
 source ~/.zplug/init.zsh
 
 zplug "jeffreytse/zsh-vi-mode"
@@ -84,7 +86,6 @@ zplug load
 
 source $ZSH/oh-my-zsh.sh
 
-source <(fzf --zsh)
 zvm_after_init_commands+=('source <(fzf --zsh)')
 
 # User configuration
