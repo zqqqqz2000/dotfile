@@ -64,21 +64,20 @@ ZSH_THEME="robbyrussell"
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
+source ~/.zplug/init.zsh
 
-# Which plugins would you like to load?
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Standard plugins can be found in $ZSH/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
-plugins+=(zsh-vi-mode)
-if type thefuck >/dev/null 2>&1; then
-  plugins+=(thefuck)
-fi
-plugins+=(tmuxinator)
-plugins+=(extract)
+zplug "jeffreytse/zsh-vi-mode"
+zplug "plugins/git",   from:oh-my-zsh
+zplug "plugins/extract",   from:oh-my-zsh
+zplug "zsh-users/zsh-autosuggestions", defer:2
+zplug "zsh-users/zsh-syntax-highlighting", defer:2
+
+zplug load
 
 source $ZSH/oh-my-zsh.sh
+
+source <(fzf --zsh)
+zvm_after_init_commands+=('source <(fzf --zsh)')
 
 # User configuration
 
