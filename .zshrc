@@ -40,7 +40,9 @@ alias c="clear"
 alias rescreen="xrandr --auto"
 alias work="cd ~/Documents/projects/"
 alias pd="deactivate"
-alias pa=". ./venv/bin/activate"
+
+# determine venv path, could be ./venv ./.venv
+alias pa='source "$(find . -type d -name 'venv' -o -name '.venv' | head -n 1)/bin/activate"'
 alias pcd="conda deactivate"
 alias penv="python -m venv venv"
 alias e="nvim ."
