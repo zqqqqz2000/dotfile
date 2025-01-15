@@ -54,7 +54,6 @@ return {
       end,
       highlight = {
         enable = true,
-        shortsighted = false,
       },
     },
   },
