@@ -25,11 +25,17 @@ return {
     "folke/snacks.nvim",
     optional = true,
     opts = function(_, opts)
+      -- remove key = "s" from opts.dashboard.preset.keys
+      -- aka. remove origin "Restore Session"
+      opts.dashboard.preset.keys = vim.tbl_filter(function(k)
+        return k.key ~= "s"
+      end, opts.dashboard.preset.keys)
+
       table.insert(opts.dashboard.preset.keys, 1, {
         action = "<leader>qS",
         desc = "Sessions",
         icon = "➤ ",
-        key = "S",
+        key = "s",
       })
     end,
   },
