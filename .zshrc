@@ -45,7 +45,7 @@ alias pd="deactivate"
 alias pa='source "$(find . -type d -name 'venv' -o -name '.venv' | head -n 1)/bin/activate"'
 alias pcd="conda deactivate"
 alias penv="python -m venv venv"
-alias e="nvim ."
+alias e="nvim"
 alias t="zellij"
 
 alias "??"="gh copilot explain --"
