@@ -47,6 +47,7 @@ alias pcd="conda deactivate"
 alias penv="python -m venv venv"
 alias e="nvim"
 alias t="zellij"
+alias ct="zellij delete-all-sessions"
 
 alias "??"="gh copilot explain --"
 alias "???"="copilot_suggest"
