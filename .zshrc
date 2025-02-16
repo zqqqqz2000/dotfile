@@ -48,6 +48,7 @@ alias penv="python -m venv venv"
 alias e="nvim"
 alias t="zellij"
 alias ct="zellij delete-all-sessions"
+alias lg="lazygit"
 
 alias "??"="gh copilot explain --"
 alias "???"="copilot_suggest"
