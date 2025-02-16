@@ -50,6 +50,8 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.ai.copilot-chat" },
     -- util
     { import = "lazyvim.plugins.extras.util.project" },
+    -- ui
+    { import = "lazyvim.plugins.extras.ui.smear-cursor" },
     -- import/override with your plugins
     { import = "plugins" },
   },
