@@ -98,11 +98,10 @@ keybinds clear-defaults=true {
     }
     search {
         bind "c" { SearchToggleOption "CaseSensitivity"; }
-        bind "n" { Search "down"; }
-        bind "N" { Search "down"; }
-        bind "o" { SearchToggleOption "WholeWord"; }
-        bind "p" { Search "up"; }
         bind "w" { SearchToggleOption "Wrap"; }
+        bind "o" { SearchToggleOption "WholeWord"; }
+        bind "n" { Search "down"; }
+        bind "N" { Search "up"; }
         bind "q" { SwitchToMode "scroll"; }
     }
     session {
