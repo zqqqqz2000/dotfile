@@ -7,7 +7,7 @@ return {
           {
             section = "terminal",
             -- fix some case snacks convert scripts -> script
-            cmd = "pokemon-colorscripts -r --no-title || pokemon-colorscript\\s -r --no-title; sleep .1",
+            cmd = "pokemon-colorscripts -r --no-title",
             random = 10,
             indent = 15,
             height = 20,
