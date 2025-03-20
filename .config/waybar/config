@@ -36,7 +36,8 @@
     "tray": {
       "icons": {
         "discord": "icon-font-char-here"
-      }
+      },
+      "spacing": 15
     },
     "battery": {
       "format": "{capacity}% {icon}",

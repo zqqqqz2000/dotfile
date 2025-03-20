@@ -9,6 +9,14 @@
   transition-duration: 0s;
 }
 
+#tray menu {
+  background-color: rgba(0, 0, 0, 0.76);
+}
+
+#tray menu *:hover {
+  background-color: #962a54;
+}
+
 window#waybar {
   background: #1b182c;
   opacity: 0.85;
