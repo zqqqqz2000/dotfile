@@ -50,6 +50,7 @@ alias e="nvim"
 alias t="zellij"
 alias ct="zellij delete-all-sessions"
 alias lg="lazygit"
+alias ww="watch -n 1"
 
 alias "??"="gh copilot explain --"
 alias "???"="copilot_suggest"
