@@ -5,4 +5,4 @@ if [ -z "${content}" ]; then
   exit 0
 fi
 
-~/.task/hooks/sync-out.sh
+~/.config/task/hooks/sync-out.sh

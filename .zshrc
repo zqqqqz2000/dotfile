@@ -44,7 +44,7 @@ alias pd="deactivate"
 
 # task
 alias tk="task"
-alias tkpull="~/.task/hooks/sync-in.sh"
+alias tkpull="~/.config/task/hooks/sync-in.sh"
 
 # determine venv path, could be ./venv ./.venv
 alias pa='source "$(find . -type d -name 'venv' -o -name '.venv' | head -n 1)/bin/activate"'

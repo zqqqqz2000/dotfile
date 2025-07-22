@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 # task export to ~/.task/task-git-sync/all.json
-task export >~/.task/task-git-sync/all.json
+task export >~/.config/task/task-git-sync/all.json
 
 cd ~/.config/task/task-git-sync/
 # if changed, add all.json to git and push
