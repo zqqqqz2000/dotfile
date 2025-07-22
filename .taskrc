@@ -25,3 +25,6 @@ hooks.location=~/.config/task/hooks
 #include solarized-light-256.theme
 #include no-color.theme
 
+context.work.read=+tencent
+context.work.write=+tencent
+
