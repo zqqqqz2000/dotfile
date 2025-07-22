@@ -3,10 +3,10 @@
 # task export to ~/.task/task-git-sync/all.json
 task export >~/.task/task-git-sync/all.json
 
-cd ~/.task/task-git-sync/
+cd ~/.config/task/task-git-sync/
 # if changed, add all.json to git and push
 if [ -n "$(git status --porcelain)" ]; then
-  git add ~/.task/task-git-sync/all.json
+  git add ~/.config/task/task-git-sync/all.json
   git commit -m "sync: $(date +%Y-%m-%d) from $USER@$(hostname)"
   git push
 fi
