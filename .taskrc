@@ -28,3 +28,5 @@ hooks.location=~/.config/task/hooks
 context.work.read=+tencent
 context.work.write=+tencent
 
+alias.ctx=context
+
