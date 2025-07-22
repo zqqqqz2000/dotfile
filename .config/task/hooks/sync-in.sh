@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 # check if ~/.task/git-sync/ repo exists
 if [ -d ~/.config/task/task-git-sync/ ]; then

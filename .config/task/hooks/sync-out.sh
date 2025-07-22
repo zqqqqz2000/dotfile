@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 # task export to ~/.task/task-git-sync/all.json
 task export >~/.config/task/task-git-sync/all.json

@@ -1,3 +1,4 @@
+#!/bin/bash
 read content
 
 # content is empty if the task is not synced
