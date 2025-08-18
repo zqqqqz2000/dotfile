@@ -26,3 +26,4 @@ vim.wo.number = true
 vim.wo.relativenumber = true
 vim.wo.cursorcolumn = true
 vim.opt.termguicolors = true
+vim.g.snacks_animate = false

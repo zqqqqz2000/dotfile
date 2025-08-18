@@ -3,9 +3,4 @@ return {
   keys = {
     { "<leader>S", false },
   },
-  opts = {
-    scroll = {
-      enabled = false,
-    },
-  },
 }
