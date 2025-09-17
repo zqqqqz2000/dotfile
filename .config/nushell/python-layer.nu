@@ -1,7 +1,5 @@
 def ensure_py_env [] {
   let venv_paths = fd -t dir -H -I venv | lines
-  print venv_paths
-  print pwd
   if ($venv_paths | length) == 0 {
     return (-1)
   }
