@@ -1,0 +1,5 @@
+{
+  plugins: [
+    nu_plugin_polars
+  ]
+}
