@@ -1,5 +1,7 @@
 def ensure_py_env [] {
   let venv_paths = fd -t dir -H -I venv | lines
+  print venv_paths
+  print pwd
   if ($venv_paths | length) == 0 {
     return (-1)
   }
@@ -32,7 +34,7 @@ def ensure_py_env [] {
 export alias pd = overlay hide python-layer
 
 export-env {
-  if (("/tmp/python-env.env" | path exists) and (ensure_py_env) != -1) {
+  if ((ensure_py_env) != -1 and ("/tmp/python-env.env" | path exists)) {
     open /tmp/python-env.env | lines | split column --number 2 "=" | reduce -f {} {|it, acc| 
       $acc | merge {($it.column1):($it.column2)}
     } | load-env
