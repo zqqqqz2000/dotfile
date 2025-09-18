@@ -51,6 +51,7 @@ def uiopen [path_or_name: string = "."] {
   }
 }
 
+use ~/.config/nushell/fzf.nu
 $env.config.buffer_editor = "nvim"
 $env.config.edit_mode = "vi"
 $env.config.cursor_shape = {
@@ -59,7 +60,6 @@ $env.config.cursor_shape = {
 }
 $env.config.show_banner = false
 
-use ~/.config/nushell/fzf.nu
 source ~/.zoxide.nu
 
 oh-my-posh init nu

@@ -43,11 +43,8 @@ const ctrl_x =  {
 
 # Update the $env.config
 export-env {
-  if not ($env.__keybindings_loaded? | default false) {
-    $env.__keybindings_loaded = true
-    $env.config.keybindings = $env.config.keybindings | append [
-      $ctrl_r
-      $ctrl_x
-    ]
-  }
+  $env.config.keybindings = $env.config.keybindings | append [
+    $ctrl_r
+    $ctrl_x
+  ]
 }
