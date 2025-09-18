@@ -59,5 +59,7 @@ $env.config.cursor_shape = {
 }
 $env.config.show_banner = false
 
-oh-my-posh init nu
+use ~/.config/nushell/fzf.nu
 source ~/.zoxide.nu
+
+oh-my-posh init nu
